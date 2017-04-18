@@ -7,7 +7,6 @@
 
     <include layout="@layout/custom_toolbar"/>
 
-    <include layout="@layout/common_fake_search_item"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_work"

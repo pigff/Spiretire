@@ -66,6 +66,7 @@ public class ReviewCompanyActivity extends BaseToolbarActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
         mLayout = (HorizontalBtnLayout) findViewById(R.id.layout_review_company);
+
     }
 
     @Override

@@ -55,7 +55,7 @@ public class MainActivity extends BaseToolbarActivity {
                 mViewPager.setCurrentItem(position, false);
                 setTitle(mTabItems.get(position).getTitle());
                 if (position == 1) {
-                    mRightTv.setVisibility(View.VISIBLE);
+//                    mRightTv.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -63,7 +63,7 @@ public class MainActivity extends BaseToolbarActivity {
             public void onTabUnselected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
                 setTab(tab, false, position);
-                mRightTv.setVisibility(View.GONE);
+//                mRightTv.setVisibility(View.GONE);
             }
 
             @Override
@@ -92,7 +92,7 @@ public class MainActivity extends BaseToolbarActivity {
     public void initView() {
         mViewPager = (ViewPager) findViewById(R.id.vp_main);
         mTabLayout = (TabLayout) findViewById(R.id.tablayout_main);
-        initPopWindow();
+//        initPopWindow();
         mRightTv.setVisibility(View.GONE);
 
         for (int i = 0; i < mTabItems.size(); i++) {

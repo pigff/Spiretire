@@ -1,9 +1,9 @@
 package com.fjrcloud.sciencepro.data.multi;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.fjrcloud.sciencepro.data.AdResponse;
 import com.fjrcloud.sciencepro.data.Category;
-import com.fjrcloud.sciencepro.data.ScienceDynamicResponse;
+import com.fjrcloud.sciencepro.data.net.AdEntity;
+import com.fjrcloud.sciencepro.data.net.ScienceDyEntity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,9 +26,9 @@ public class MainMulti implements MultiItemEntity, Serializable {
     public static final int NORMAL_SIZE = 4;
 
     private Category category;
-    private List<AdResponse.Ad> ads;
+    private List<AdEntity> ads;
     private Map<String, Integer> map;
-    private ScienceDynamicResponse.ScienceDynamic news;
+    private ScienceDyEntity news;
     private String content;
 
     private int itemType;
@@ -47,13 +47,13 @@ public class MainMulti implements MultiItemEntity, Serializable {
         this.itemType = itemType;
     }
 
-    public MainMulti(int spanSize, ScienceDynamicResponse.ScienceDynamic news, int itemType) {
+    public MainMulti(int spanSize, ScienceDyEntity news, int itemType) {
         this.spanSize = spanSize;
         this.news = news;
         this.itemType = itemType;
     }
 
-    public MainMulti(int spanSize, List<AdResponse.Ad> ads, int itemType) {
+    public MainMulti(int spanSize, List<AdEntity> ads, int itemType) {
         this.spanSize = spanSize;
         this.ads = ads;
         this.itemType = itemType;
@@ -78,19 +78,19 @@ public class MainMulti implements MultiItemEntity, Serializable {
         this.category = category;
     }
 
-    public List<AdResponse.Ad> getAds() {
+    public List<AdEntity> getAds() {
         return ads;
     }
 
-    public void setAds(List<AdResponse.Ad> ads) {
+    public void setAds(List<AdEntity> ads) {
         this.ads = ads;
     }
 
-    public ScienceDynamicResponse.ScienceDynamic getNews() {
+    public ScienceDyEntity getNews() {
         return news;
     }
 
-    public void setNews(ScienceDynamicResponse.ScienceDynamic news) {
+    public void setNews(ScienceDyEntity news) {
         this.news = news;
     }
 

@@ -13,13 +13,17 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.fjrcloud.sciencepro.R;
 import com.fjrcloud.sciencepro.adapter.MainMultiAdapter;
-import com.fjrcloud.sciencepro.data.AdResponse;
-import com.fjrcloud.sciencepro.data.ScienceDynamicResponse;
+import com.fjrcloud.sciencepro.data.api.ScienceApi;
 import com.fjrcloud.sciencepro.data.multi.MainMulti;
+import com.fjrcloud.sciencepro.data.net.AdEntity;
+import com.fjrcloud.sciencepro.data.net.ScienceDyEntity;
+import com.fjrcloud.sciencepro.network.HttpListResultFunc;
+import com.fjrcloud.sciencepro.network.HttpResultFunc;
+import com.fjrcloud.sciencepro.network.RequestManager;
+import com.fjrcloud.sciencepro.subscribers.SimpleSubListener;
+import com.fjrcloud.sciencepro.subscribers.SimpleSubscriber;
 import com.fjrcloud.sciencepro.ui.activity.ArticleDetailedActivity;
 import com.fjrcloud.sciencepro.ui.activity.DownloadFileActivity;
-import com.fjrcloud.sciencepro.ui.activity.FilePushActivity;
-import com.fjrcloud.sciencepro.ui.activity.MailboxUserActivity;
 import com.fjrcloud.sciencepro.ui.activity.ScienceActivity;
 import com.fjrcloud.sciencepro.ui.activity.ScienceDynamicActivity;
 import com.fjrcloud.sciencepro.ui.activity.SciencePolicyActivity;
@@ -32,11 +36,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func2;
+import rx.schedulers.Schedulers;
+
 public class MainFragment extends BaseFragment {
 
     private RecyclerView mRecyclerView;
     private List<MainMulti> mMainMultis;
     private MainMultiAdapter mAdapter;
+    private Map<String, Integer> mMap;
 
     public MainFragment() {
         // Required empty public constructor
@@ -98,13 +108,15 @@ public class MainFragment extends BaseFragment {
                         break;
                     case 5:
 //                        openActivity(MailboxManagerActivity.class);
-                        openActivity(MailboxUserActivity.class);
+                        showShortToast("该功能开发中");
+//                        openActivity(MailboxUserActivity.class);
                         break;
                     case 6:
                         openActivity(DownloadFileActivity.class);
                         break;
                     case 7:
-                        openActivity(FilePushActivity.class);
+                        showShortToast("该功能开发中");
+//                        openActivity(FilePushActivity.class);
                         break;
                     default:
                         break;
@@ -115,32 +127,30 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        Map<String, Integer> map = new LinkedHashMap<>();
-        map.put("科技局", R.drawable.img_science);
-        map.put("科技动态", R.drawable.img_science_dynamic);
-        map.put("科技政策", R.drawable.img_science_policy);
-        map.put("办事指南", R.drawable.img_work_guide);
-        map.put("在线交流", R.drawable.img_talk);
-        map.put("公众信箱", R.drawable.img_affair_public);
-        map.put("文件下载", R.drawable.img_download_file);
-        map.put("文件推送", R.drawable.img_download_file);
+        mMap = new LinkedHashMap<>();
+        mMap.put("科技局", R.drawable.img_science);
+        mMap.put("科技动态", R.drawable.img_science_dynamic);
+        mMap.put("科技政策", R.drawable.img_science_policy);
+        mMap.put("办事指南", R.drawable.img_work_guide);
+        mMap.put("在线交流", R.drawable.img_talk);
+        mMap.put("公众信箱", R.drawable.img_affair_public);
+        mMap.put("文件下载", R.drawable.img_download_file);
+        mMap.put("文件推送", R.drawable.img_download_file);
         mMainMultis = new ArrayList<>();
-        List<AdResponse.Ad> ads = new ArrayList<>();
-        List<String> oneUrl = new ArrayList<>();
-        oneUrl.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1812573004,1419340744&fm=23&gp=0.jpg");
-        ads.add(new AdResponse.Ad("广告位招租", "http://www.baosteelresources.com/baogang/new_web/images/top_yewu_02.jpg"));
-        ads.add(new AdResponse.Ad("广告位招租", "http://www.baosteelresources.com/baogang/new_web/images/top_yewu_02.jpg"));
-        ads.add(new AdResponse.Ad("广告位招租", "http://www.baosteelresources.com/baogang/new_web/images/top_yewu_02.jpg"));
-        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE,
-                ads, MainMulti.BANNER));
-        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE, MainMulti.DIVIDING));
-        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE, MainMulti.FILP));
-        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE, MainMulti.DIVIDING));
-        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE, MainMulti.GRID, map));
-        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE, MainMulti.DIVIDING));
-        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE, "科技动态", MainMulti.TEXT_MORE));
-        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE, new ScienceDynamicResponse.ScienceDynamic("福州市科学技术局2016年政府信息公开工作年度报告"
-                , "2017-01-09", oneUrl, getString(R.string.first)), MainMulti.NEWS_RIGHT));
+//        List<AdResponse.Ad> ads = new ArrayList<>();
+//        List<String> oneUrl = new ArrayList<>();
+//        oneUrl.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1812573004,1419340744&fm=23&gp=0.jpg");
+//        ads.add(new AdResponse.Ad("广告位招租", "http://www.baosteelresources.com/baogang/new_web/images/top_yewu_02.jpg"));
+//        ads.add(new AdResponse.Ad("广告位招租", "http://www.baosteelresources.com/baogang/new_web/images/top_yewu_02.jpg"));
+//        ads.add(new AdResponse.Ad("广告位招租", "http://www.baosteelresources.com/baogang/new_web/images/top_yewu_02.jpg"));
+//        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE,
+//                ads, MainMulti.BANNER));
+////        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE, MainMulti.DIVIDING));
+////        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE, MainMulti.FILP));
+//        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE, MainMulti.DIVIDING));
+//        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE, MainMulti.GRID, map));
+//        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE, MainMulti.DIVIDING));
+//        mMainMultis.add(new MainMulti(MainMulti.NORMAL_SIZE, "科技动态", MainMulti.TEXT_MORE));
 
     }
 
@@ -157,4 +167,45 @@ public class MainFragment extends BaseFragment {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    @Override
+    protected void onLazyLoad() {
+        SimpleSubListener<List<MainMulti>> listener = new SimpleSubListener<List<MainMulti>>() {
+            @Override
+            public void onNext(List<MainMulti> mainMultis) {
+                mAdapter.setNewData(mainMultis);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+        };
+        ScienceApi api = RequestManager.getInstance().getScienceApi();
+        Observable.zip(api.adFind("AppIndex").map(new HttpResultFunc<List<AdEntity>>()),
+                api.affairFindAll(0, 6).map(new HttpListResultFunc<List<ScienceDyEntity>>()),
+                new Func2<List<AdEntity>, List<ScienceDyEntity>, List<MainMulti>>() {
+                    @Override
+                    public List<MainMulti> call(List<AdEntity> adEntities, List<ScienceDyEntity> scienceDyEntities) {
+                        List<MainMulti> multis = new ArrayList<>();
+                        if (adEntities.size() <= 0) {
+                            adEntities.add(new AdEntity("广告位招租", "http://www.baosteelresources.com/baogang/new_web/images/top_yewu_02.jpg"));
+                            adEntities.add(new AdEntity("广告位招租", "http://www.baosteelresources.com/baogang/new_web/images/top_yewu_02.jpg"));
+                            adEntities.add(new AdEntity("广告位招租", "http://www.baosteelresources.com/baogang/new_web/images/top_yewu_02.jpg"));
+                        }
+                        multis.add(new MainMulti(MainMulti.NORMAL_SIZE,
+                                adEntities, MainMulti.BANNER));
+                        multis.add(new MainMulti(MainMulti.NORMAL_SIZE, MainMulti.DIVIDING));
+                        multis.add(new MainMulti(MainMulti.NORMAL_SIZE, MainMulti.GRID, mMap));
+                        multis.add(new MainMulti(MainMulti.NORMAL_SIZE, MainMulti.DIVIDING));
+                        multis.add(new MainMulti(MainMulti.NORMAL_SIZE, "科技动态", MainMulti.TEXT_MORE));
+                        for (ScienceDyEntity entity : scienceDyEntities) {
+                            multis.add(new MainMulti(MainMulti.NORMAL_SIZE, entity, MainMulti.NEWS_RIGHT));
+                        }
+                        return multis;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SimpleSubscriber<>(listener));
+    }
 }

@@ -1,17 +1,22 @@
 package com.fjrcloud.sciencepro.network;
 
-import com.fjrcloud.sciencepro.data.api.ScienceApi;
-import com.fjrcloud.sciencepro.utils.AppUtils;
-import com.fjrcloud.sciencepro.utils.Constants;
+import android.util.Log;
 
-import java.io.File;
+import com.fjrcloud.sciencepro.App;
+import com.fjrcloud.sciencepro.data.api.ScienceApi;
+import com.fjrcloud.sciencepro.utils.Constants;
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+
 import java.io.IOException;
 
-import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -33,26 +38,35 @@ public class RequestManager {
         Interceptor interceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                Response response = null;
-                try {
-                    response = chain.proceed(request);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (response != null) {
-                    return response.newBuilder()
-                            .header("Cache-Control", "max-age=" + MAX_AGE)
-                            .build();
-                }
-                return response;
+                Request newRequest = chain.request().newBuilder()
+                        .header("Accept", "application/json")
+                        .build();
+                return chain.proceed(newRequest);
             }
         };
 
-        File cacheDirectory = new File(AppUtils.getCacheDir(), "response");
+        // okhttp3打印请求log的拦截器
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                if (message.startsWith("{")) {
+                    Log.d(TAG, message);
+                } else {
+                    if (message.contains("-->") || message.contains("<--")) {
+                        Log.d(TAG, message);
+                    }
+                }
+            }
+        });
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+
+        ClearableCookieJar cookieJar =
+                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(App.getInstance()));
+
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .cache(new Cache(cacheDirectory, CACHE_SIZE))
+                .cookieJar(cookieJar)
                 .addNetworkInterceptor(interceptor)
+                .addInterceptor(httpLoggingInterceptor)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -76,4 +90,8 @@ public class RequestManager {
         return sRequestManager;
     }
 
+
+    public ScienceApi getScienceApi() {
+        return mScienceApi;
+    }
 }

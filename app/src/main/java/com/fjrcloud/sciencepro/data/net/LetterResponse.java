@@ -11,6 +11,7 @@ public class LetterResponse extends BaseBean<LetterResponse.DataEntity> {
     public static class DataEntity {
 
         public static class LetterEntity {
+
             private String title;
             private String content;
             private String date;

@@ -26,6 +26,7 @@
 
 
         <com.fjrcloud.sciencepro.widget.EditTextWithDel
+            android:id="@+id/edit_common_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

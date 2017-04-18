@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -20,28 +19,15 @@ import java.util.List;
 /**
  * 办事指南
  */
-public class WorkActivity extends BaseToolbarActivity implements View.OnClickListener{
+public class WorkActivity extends BaseToolbarActivity{
 
     private RecyclerView mRecyclerView;
-    private LinearLayout mSearchLayou;
     private WorkAdapter mAdapter;
     private List<WorkZipItem> mWorkZipItems;
 
     @Override
     protected int provideContentView() {
         return R.layout.activity_work;
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fake_search_group:
-                Intent intent2Search = new Intent(WorkActivity.this, SearchActivity.class);
-                startActivity(intent2Search);
-                break;
-            default:
-                break;
-        }
     }
 
     @Override
@@ -64,11 +50,9 @@ public class WorkActivity extends BaseToolbarActivity implements View.OnClickLis
     public void initView() {
         setTitle("办事指南");
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_work);
-        mSearchLayou = (LinearLayout) findViewById(R.id.fake_search_group);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(WorkActivity.this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
-        mSearchLayou.setOnClickListener(this);
     }
 
     @Override

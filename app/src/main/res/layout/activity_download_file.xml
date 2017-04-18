@@ -7,6 +7,8 @@
 
     <include layout="@layout/common_fake_search_item"/>
 
+    <include layout="@layout/common_empty_layout"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_download_file"
         android:layout_width="match_parent"

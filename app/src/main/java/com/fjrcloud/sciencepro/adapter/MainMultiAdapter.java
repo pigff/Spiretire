@@ -1,5 +1,6 @@
 package com.fjrcloud.sciencepro.adapter;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,8 +12,10 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.fjrcloud.sciencepro.R;
-import com.fjrcloud.sciencepro.data.AdResponse;
 import com.fjrcloud.sciencepro.data.multi.MainMulti;
+import com.fjrcloud.sciencepro.data.net.AdEntity;
+import com.fjrcloud.sciencepro.utils.Constants;
+import com.fjrcloud.sciencepro.utils.DateUtil;
 import com.fjrcloud.sciencepro.utils.ImgLoadUtils;
 import com.fjrcloud.sciencepro.widget.HomeGridView;
 
@@ -46,17 +49,27 @@ public class MainMultiAdapter extends BaseMultiItemQuickAdapter<MainMulti, BaseV
             case MainMulti.BANNER:
                 List<String> names = new ArrayList<>();
                 BGABanner bgaBanner = baseViewHolder.getView(R.id.common_banner);
-
-                bgaBanner.setAdapter(new BGABanner.Adapter() {
-                    @Override
-                    public void fillBannerItem(BGABanner banner, View view, Object model, int position) {
-                        Glide.with(mContext).load(((AdResponse.Ad) model).getImgUrl()).
-                                error(R.mipmap.ic_launcher).into((ImageView) view);
-                    }
-                });
+                if (multi.getAds().size() > 0 &&
+                        !TextUtils.equals("广告位招租", multi.getAds().get(0).getTitle())) {
+                    bgaBanner.setAdapter(new BGABanner.Adapter() {
+                        @Override
+                        public void fillBannerItem(BGABanner banner, View view, Object model, int position) {
+                            Glide.with(mContext).load(Constants.BASE_IMG_URL + ((AdEntity) model).getImgPath()).
+                                    error(R.drawable.img_error).into((ImageView) view);
+                        }
+                    });
+                } else {
+                    bgaBanner.setAdapter(new BGABanner.Adapter() {
+                        @Override
+                        public void fillBannerItem(BGABanner banner, View view, Object model, int position) {
+                            Glide.with(mContext).load(((AdEntity) model).getImgPath()).
+                                    error(R.drawable.img_error).into((ImageView) view);
+                        }
+                    });
+                }
 
                 for (int i = 0; i < multi.getAds().size(); i++) {
-                    names.add(multi.getAds().get(i).getContent());
+                    names.add(multi.getAds().get(i).getTitle());
                 }
                 bgaBanner.setData(multi.getAds(), names);
                 bgaBanner.setOnItemClickListener(new BGABanner.OnItemClickListener() {
@@ -73,11 +86,11 @@ public class MainMultiAdapter extends BaseMultiItemQuickAdapter<MainMulti, BaseV
                 break;
             case MainMulti.NEWS_RIGHT:
                 baseViewHolder.setText(R.id.title_multi_news, multi.getNews().getTitle())
-                        .setText(R.id.time_multi_news, multi.getNews().getDate())
+                        .setText(R.id.time_multi_news, DateUtil.getDateToString(multi.getNews().getCreateTime()))
                         .addOnClickListener(R.id.multi_news_group);
 
                 ImageView imageView = baseViewHolder.getView(R.id.iv_multi_news);
-                ImgLoadUtils.loadUrl(mContext, multi.getNews().getImgUrls().get(0), R.mipmap.ic_launcher, imageView);
+                ImgLoadUtils.loadUrl(mContext, Constants.BASE_Web_IMG_URL + multi.getNews().getImgPath(), R.drawable.img_error, imageView);
                 break;
             case MainMulti.TEXT_MORE:
                 baseViewHolder.setText(R.id.name_multi_more, multi.getContent())
