@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/custom_toolbar"/>
+
+    <include layout="@layout/common_fake_file_search_item"/>
+
+    <LinearLayout
+        android:id="@+id/group_inbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_20"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/icon_file_save"/>
+
+        <TextView
+            style="@style/StyleFilePushCategoryText"
+            android:text="收件箱"/>
+
+        <TextView
+            android:id="@+id/file_push_label_01"
+            style="@style/FilePushNumberLabel"
+            android:text="21"/>
+    </LinearLayout>
+
+    <View
+        style="@style/DividingLineStyle"/>
+
+    <LinearLayout
+        android:id="@+id/file_draft_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_20"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/icon_file_save"/>
+
+        <TextView
+            style="@style/StyleFilePushCategoryText"
+            android:text="草稿箱"/>
+
+        <TextView
+            android:id="@+id/file_push_label_02"
+            style="@style/FilePushNumberLabel"
+            android:text="21"/>
+    </LinearLayout>
+
+    <View
+        style="@style/DividingLineStyle"/>
+
+    <LinearLayout
+        android:id="@+id/group_file_sended"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_20"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/icon_file_save"/>
+
+        <TextView
+            style="@style/StyleFilePushCategoryText"
+            android:text="已发送"/>
+
+        <TextView
+            android:id="@+id/file_push_label_03"
+            style="@style/FilePushNumberLabel"
+            android:text="21"/>
+    </LinearLayout>
+
+    <View
+        style="@style/DividingLineStyle"/>
+
+    <LinearLayout
+        android:id="@+id/group_file_deled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_20"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/icon_file_save"/>
+
+        <TextView
+            style="@style/StyleFilePushCategoryText"
+            android:text="已删除"/>
+
+        <TextView
+            android:id="@+id/file_push_label_04"
+            style="@style/FilePushNumberLabel"
+            android:text="21+"/>
+    </LinearLayout>
+
+    <View
+        style="@style/DividingLineStyle"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_243_color_code"
+        android:paddingBottom="@dimen/dp_2"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingTop="@dimen/dp_2"
+        android:text="反馈"
+        android:textColor="@color/black_90_color_code"/>
+
+    <View
+        style="@style/DividingLineStyle"/>
+
+    <LinearLayout
+        android:id="@+id/group_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_20"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/icon_file_save"/>
+
+        <TextView
+            style="@style/StyleFilePushCategoryText"
+            android:text="查阅反馈"/>
+
+        <TextView
+            android:id="@+id/file_push_label_05"
+            style="@style/FilePushNumberLabel"
+            android:text="21"/>
+    </LinearLayout>
+
+    <View
+        style="@style/DividingLineStyle"/>
+
+    <LinearLayout
+        android:id="@+id/file_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_20"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/icon_file_save"/>
+
+        <TextView
+            style="@style/StyleFilePushCategoryText"
+            android:text="预警提醒"/>
+
+        <TextView
+            android:id="@+id/file_push_label_06"
+            style="@style/FilePushNumberLabel"
+            android:text="21"/>
+    </LinearLayout>
+
+    <View
+        style="@style/DividingLineStyle"/>
+</LinearLayout>

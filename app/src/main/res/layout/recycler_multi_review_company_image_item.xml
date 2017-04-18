@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/dp_10"
+              android:paddingTop="@dimen/dp_10">
+
+    <ImageView
+        android:id="@+id/iv_multi_review_company_image"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_camera"/>
+
+    <TextView
+        android:id="@+id/tv_multi_review_company_image_name"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:gravity="bottom"
+        android:text="融云物联网有限公司"
+        android:textColor="@color/black_102_color_code"/>
+
+</LinearLayout>

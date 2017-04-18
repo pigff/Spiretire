@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/custom_toolbar"/>
+
+    <com.fjrcloud.sciencepro.widget.NoScrollViewPager
+        android:id="@+id/vp_more_post"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+
+    <LinearLayout
+        android:id="@+id/more_post_btn_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_247_color_code"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_switch_hot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="最新热帖"
+            android:textColor="@color/black_62_color_code"/>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@color/grey_150_color_code"/>
+
+        <Button
+            android:id="@+id/btn_switch_top"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="置顶热帖"
+            android:textColor="@color/black_62_color_code"/>
+    </LinearLayout>
+</LinearLayout>

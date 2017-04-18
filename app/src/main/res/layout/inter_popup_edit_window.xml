@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/pop_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/cancel_popwindow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:text="取消"
+                    android:textColor="@color/black_62_color_code"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="回复"
+                    android:textColor="@color/black_62_color_code"/>
+
+                <Button
+                    android:id="@+id/pop_white_btn"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/bg_dark_red"
+                    android:text="发送"
+                    android:textColor="@color/white"/>
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/show_input_edit"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_below="@+id/pop_group"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edittext"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/pop_white_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@null"
+                    android:gravity="start"
+                    android:hint="请输入要回复的内容..."/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

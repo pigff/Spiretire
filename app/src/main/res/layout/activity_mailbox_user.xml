@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/custom_toolbar"/>
+
+        <com.fjrcloud.sciencepro.widget.FourHorizontalBtnLayout
+            android:id="@+id/layout_user_mailbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:firstBtnTextName_four="全部"
+            app:middleBtnTextName_four="正在处理"
+            app:middleTwoBtnTextName_four="处理完毕"/>
+
+        <com.fjrcloud.sciencepro.widget.NoScrollViewPager
+            android:id="@+id/vp_user_mailbox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_user_mailbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:src="@mipmap/ic_letter"
+        app:backgroundTint="@color/red_255_color_code"
+        app:fabSize="normal"
+        />
+</FrameLayout>

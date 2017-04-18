@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/custom_toolbar"/>
+
+    <EditText
+        android:id="@+id/edit_review_no_pass"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/dp_10"
+        android:layout_weight="2"
+        android:background="@null"
+        android:gravity="start"
+        android:hint="填请写不通过的原因..."
+        android:textColorHint="@color/grey_191_color_code"
+        android:textSize="14sp"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/grey_238_color_code"
+        android:padding="@dimen/dp_10">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_review_no_pass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+
+    <com.fjrcloud.sciencepro.widget.HorizontalBtnLayout
+        android:id="@+id/layout_review_no_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftBtnText="确认"
+        app:rightBtnText="取消"/>
+
+</LinearLayout>

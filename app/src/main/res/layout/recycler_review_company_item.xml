@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/review_company_group"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_20"
+        android:orientation="horizontal">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_http_error"
+            app:riv_border_color="@color/blue_68_color_code"
+            app:riv_border_width="1dp"
+            app:riv_oval="true"/>
+
+        <TextView
+            android:id="@+id/tv_review_company_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_weight="1"
+            android:text="福耀玻璃工业集团有限公司"
+            android:textColor="@color/black_44_color_code"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_hollow_orange248_3dp"
+            android:paddingBottom="@dimen/dp_2"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_2"
+            android:text="审核"
+            android:textColor="@color/orange_248_color_code"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_review_company_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:text="提交时间: 2017-02-06"
+        android:textColor="@color/grey_191_color_code"/>
+
+    <View
+        style="@style/DividingLineStyle"
+        android:layout_marginTop="@dimen/dp_10"/>
+
+    <View
+        style="@style/Dividing10dpLineStyle"/>
+</LinearLayout>

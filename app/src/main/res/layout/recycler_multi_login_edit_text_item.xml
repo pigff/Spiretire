@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/dp_10"
+              android:paddingTop="@dimen/dp_10">
+
+    <TextView
+        android:id="@+id/tv_multi_login_edit_text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="账  号:"
+        android:textColor="@color/black_62_color_code"/>
+
+    <EditText
+        android:id="@+id/edit_multi_login_edit_text_prompt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_weight="1"
+        android:background="@null"
+        android:hint="请选择行业"
+        android:textSize="14sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_multi_login_edit_text_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="附件"
+        android:textColor="@color/blue_59_color_code"
+        android:textSize="12sp"/>
+</LinearLayout>

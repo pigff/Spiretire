@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="@dimen/dp_5"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="2dp"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <ImageView
+            android:id="@+id/portrait_leader_card"
+            android:layout_width="85dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/CardLinerStyle"
+                android:layout_marginTop="0dp">
+
+                <TextView
+                    android:id="@+id/tv_name_leader_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="郑坚 职务:  副局长"
+                    android:textColor="@color/black_34_color_code"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/CardLinerStyle">
+
+                <TextView
+                    android:id="@+id/tv_duty_leader_card"
+                    style="@style/CardTextStyle"
+                    android:text="职务:"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/CardLinerStyle">
+
+                <TextView
+                    android:id="@+id/tv_phone_leader_card"
+                    style="@style/CardTextStyle"
+                    android:text="电话:"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/CardLinerStyle">
+
+                <TextView
+                    android:id="@+id/tv_email_leader_card"
+                    style="@style/CardTextStyle"
+                    android:text="电话:"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

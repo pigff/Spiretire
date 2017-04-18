@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/custom_toolbar"/>
+
+    <com.fjrcloud.sciencepro.widget.FourHorizontalBtnLayout
+        android:id="@+id/layout_manager_mailbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:firstBtnTextName_four="全部"
+        app:lastBtnTextName_four="不通过"
+        app:middleBtnTextName_four="待审核"
+        app:middleTwoBtnTextName_four="通过"/>
+
+    <com.fjrcloud.sciencepro.widget.NoScrollViewPager
+        android:id="@+id/vp_manager_mailbox"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

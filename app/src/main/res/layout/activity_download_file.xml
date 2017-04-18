@@ -1,0 +1,14 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/custom_toolbar"/>
+
+    <include layout="@layout/common_fake_search_item"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_download_file"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

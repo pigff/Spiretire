@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.fjrcloud.sciencepro">
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.ModifyPswActivity">
+        </activity>
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity android:name=".ui.activity.LoginActivity">
+        </activity>
+        <activity android:name=".ui.activity.ScienceActivity">
+        </activity>
+        <activity android:name=".ui.activity.IntroDutyActivity">
+        </activity>
+        <activity android:name=".ui.activity.IntroLeaderActivity">
+        </activity>
+        <activity android:name=".ui.activity.IntroAgenceActivity">
+        </activity>
+        <activity android:name=".ui.activity.ScienceDynamicActivity">
+        </activity>
+        <activity android:name=".ui.activity.SciencePolicyActivity">
+        </activity>
+        <activity android:name=".ui.activity.WorkListActivity">
+        </activity>
+        <activity android:name=".ui.activity.SearchActivity">
+        </activity>
+        <activity android:name=".ui.activity.WorkDetailedActivity">
+        </activity>
+        <activity android:name=".ui.activity.ArticleDetailedActivity">
+        </activity>
+        <activity android:name=".ui.activity.DownloadFileActivity">
+        </activity>
+        <activity android:name=".ui.activity.useless.GovernmentActivity">
+        </activity>
+        <activity android:name=".ui.activity.WorkActivity">
+        </activity>
+        <activity android:name=".ui.activity.PolicyDetailedActivity">
+        </activity>
+        <activity android:name=".ui.activity.MailboxUserActivity">
+        </activity>
+        <activity android:name=".ui.activity.MailboxManagerActivity">
+        </activity>
+        <activity android:name=".ui.activity.MyMailboxActivity">
+        </activity>
+        <activity android:name=".ui.activity.WriteLetterActivity">
+        </activity>
+        <activity android:name=".ui.activity.UserReplyActivity">
+        </activity>
+        <activity android:name=".ui.activity.SelectPicActivity">
+        </activity>
+        <activity android:name=".ui.activity.LetterDetailedActivity">
+        </activity>
+        <activity android:name=".ui.activity.SelectIndusActivity">
+        </activity>
+        <activity android:name=".ui.activity.SelectIndusDetailActivity">
+        </activity>
+        <activity android:name=".ui.activity.ReviewFailUserActivity">
+        </activity>
+        <activity android:name=".ui.activity.SonRegistActivity">
+        </activity>
+        <activity android:name=".ui.activity.SonAccountListActivity">
+        </activity>
+        <activity android:name=".ui.activity.ModifySonAccountActivity">
+        </activity>
+        <activity
+            android:name=".ui.activity.ModifyCompanyMsgActivity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity android:name=".ui.activity.NatureLengthActivity">
+        </activity>
+        <activity android:name=".ui.activity.SelectNatureActivity">
+        </activity>
+        <activity android:name=".ui.activity.ChooseTimeActivity">
+        </activity>
+        <activity android:name=".ui.activity.manager.ManagerReviewListActivity">
+        </activity>
+        <activity android:name=".ui.activity.manager.ReviewCompanyActivity">
+        </activity>
+        <activity android:name=".ui.activity.manager.ReviewNoPassActivity">
+        </activity>
+        <activity android:name=".ui.activity.ReviewUserActivity">
+        </activity>
+        <activity android:name=".ui.activity.FilePushActivity">
+        </activity>
+        <activity android:name=".ui.activity.filepush.FileContainerActivity">
+        </activity>
+        <activity android:name=".ui.activity.filepush.FileSearchActivity">
+        </activity>
+    </application>
+
+</manifest>

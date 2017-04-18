@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/multi_login_text_group"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/dp_10"
+              android:paddingTop="@dimen/dp_10">
+
+    <TextView
+        android:id="@+id/tv_multi_review_company_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="账  号:"
+        android:textColor="@color/black_62_color_code"/>
+
+    <TextView
+        android:id="@+id/tv_multi_review_company_prompt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_weight="1"
+        android:text="请选择行业"
+        />
+</LinearLayout>

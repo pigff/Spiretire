@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/user_mailbox_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title_user_mailbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:ems="22"
+                android:maxLines="2"
+                android:text="2017福州市科技计划项目"
+                android:textColor="@color/black_62_color_code"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_name_user_mailbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="福耀玻璃"
+                android:textColor="@color/orange_248_color_code"/>
+
+            <TextView
+                android:id="@+id/tv_date_user_mailbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2017-02-06"
+                android:textColor="@color/grey_191_color_code"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_status_user_mailbox"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_hollow_blue59_3dp"
+            android:text="正在处理"
+            android:gravity="center"
+            android:textColor="@color/blue_59_color_code"/>
+    </LinearLayout>
+
+    <View
+        style="@style/DividingLineStyle"/>
+
+    <View
+        style="@style/Dividing10dpLineStyle"/>
+
+</LinearLayout>

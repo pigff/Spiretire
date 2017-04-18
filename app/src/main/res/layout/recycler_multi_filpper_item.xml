@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_multi_bulletin_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:minHeight="60dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@color/grey_238_color_code"/>
+
+    <ViewFlipper
+        android:id="@+id/flipper_multi_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:autoStart="true"
+        android:flipInterval="4000"
+        android:inAnimation="@anim/anim_marquee_in"
+        android:minHeight="50dp"
+        android:outAnimation="@anim/anim_marquee_out"/>
+</LinearLayout>

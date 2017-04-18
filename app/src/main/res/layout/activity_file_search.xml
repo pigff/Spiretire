@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_file_search_item"/>
+
+    <com.fjrcloud.sciencepro.widget.FourHorizontalBtnLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:firstBtnTextName_four="全部"
+        app:middleBtnTextName_four="已读"
+        app:middleTwoBtnTextName_four="未读"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_file_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_15"/>
+</LinearLayout>
