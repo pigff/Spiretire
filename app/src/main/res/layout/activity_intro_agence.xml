@@ -12,6 +12,7 @@
         android:id="@+id/tab_intro_agence"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabMode="scrollable"
         app:tabBackground="@color/grey_249_color_code"
         app:tabIndicatorColor="@color/blue_68_color_code"
         app:tabSelectedTextColor="@color/blue_59_color_code"

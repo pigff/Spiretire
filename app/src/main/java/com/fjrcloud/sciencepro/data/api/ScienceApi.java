@@ -3,11 +3,13 @@ package com.fjrcloud.sciencepro.data.api;
 import com.fjrcloud.sciencepro.data.base.HttpListResut;
 import com.fjrcloud.sciencepro.data.base.HttpResult;
 import com.fjrcloud.sciencepro.data.net.AdEntity;
+import com.fjrcloud.sciencepro.data.net.DepartmentEntity;
 import com.fjrcloud.sciencepro.data.net.EnterpriseEntity;
 import com.fjrcloud.sciencepro.data.net.EnterpriseTypeEntity;
 import com.fjrcloud.sciencepro.data.net.FileEntity;
 import com.fjrcloud.sciencepro.data.net.ManagementEntity;
 import com.fjrcloud.sciencepro.data.net.ScienceDyEntity;
+import com.fjrcloud.sciencepro.data.net.StaffEntity;
 
 import java.util.List;
 
@@ -40,7 +42,7 @@ public interface ScienceApi {
 
     @GET("enterprise/findAll")
     Observable<HttpListResut<List<EnterpriseEntity>>> enterpriseFindAll(@Query("pageNum") Integer pageNum,
-                                                                     @Query("pageSize") Integer pageSize);
+                                                                        @Query("pageSize") Integer pageSize);
 
     @GET("enterprise/searchByName")
     Observable<HttpResult<List<EnterpriseEntity>>> enterpriseSearchByName(@Query("KeyWord") String keyWord);
@@ -58,4 +60,10 @@ public interface ScienceApi {
 
     @GET("gov/affair/findById")
     Observable<HttpResult<ScienceDyEntity>> affairFindById(@Query("id") Integer id);
+
+    @GET("structure/department/find")
+    Observable<HttpResult<StaffEntity>> deparmentFind(@Query("id") Integer id);
+
+    @GET("structure/department/findByOneScopes")
+    Observable<HttpResult<List<DepartmentEntity>>> findByOneScopes(@Query("scopes") String scopes);
 }

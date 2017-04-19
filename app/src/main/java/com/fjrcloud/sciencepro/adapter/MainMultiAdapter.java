@@ -88,9 +88,13 @@ public class MainMultiAdapter extends BaseMultiItemQuickAdapter<MainMulti, BaseV
                 baseViewHolder.setText(R.id.title_multi_news, multi.getNews().getTitle())
                         .setText(R.id.time_multi_news, DateUtil.getDateToString(multi.getNews().getCreateTime()))
                         .addOnClickListener(R.id.multi_news_group);
-
                 ImageView imageView = baseViewHolder.getView(R.id.iv_multi_news);
-                ImgLoadUtils.loadUrl(mContext, Constants.BASE_Web_IMG_URL + multi.getNews().getImgPath(), R.drawable.img_error, imageView);
+                if (!TextUtils.isEmpty(multi.getNews().getImgPath())) {
+                    imageView.setVisibility(View.VISIBLE);
+                    ImgLoadUtils.loadUrl(mContext, Constants.BASE_Web_IMG_URL + multi.getNews().getImgPath(), R.drawable.img_error, imageView);
+                } else {
+                    imageView.setVisibility(View.GONE);
+                }
                 break;
             case MainMulti.TEXT_MORE:
                 baseViewHolder.setText(R.id.name_multi_more, multi.getContent())

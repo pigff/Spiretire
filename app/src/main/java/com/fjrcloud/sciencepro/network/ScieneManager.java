@@ -1,16 +1,24 @@
 package com.fjrcloud.sciencepro.network;
 
+import android.text.TextUtils;
+
+import com.fjrcloud.sciencepro.data.base.HttpResult;
 import com.fjrcloud.sciencepro.data.net.AdEntity;
+import com.fjrcloud.sciencepro.data.net.DepartmentEntity;
 import com.fjrcloud.sciencepro.data.net.EnterpriseEntity;
 import com.fjrcloud.sciencepro.data.net.FileEntity;
+import com.fjrcloud.sciencepro.data.net.LeaderEntity;
 import com.fjrcloud.sciencepro.data.net.ManagementEntity;
 import com.fjrcloud.sciencepro.data.net.ScienceDyEntity;
+import com.fjrcloud.sciencepro.data.net.StaffEntity;
 
 import java.util.List;
 
+import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -94,4 +102,52 @@ public class ScieneManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
+    public static Subscription findLeaders(Subscriber<List<LeaderEntity>> subscriber) {
+        return RequestManager.getInstance()
+                .getScienceApi().findByOneScopes("S")
+                .map(new HttpResultFunc<List<DepartmentEntity>>())
+                .flatMap(new Func1<List<DepartmentEntity>, Observable<HttpResult<StaffEntity>>>() {
+                    @Override
+                    public Observable<HttpResult<StaffEntity>> call(List<DepartmentEntity> departmentEntities) {
+                        int id = 0;
+                        for (DepartmentEntity entity : departmentEntities) {
+                            if (TextUtils.equals("领导", entity.getName())) {
+                                id = entity.getId();
+                                break;
+                            }
+                        }
+                        return RequestManager.getInstance().getScienceApi().deparmentFind(id);
+                    }
+                })
+                .map(new HttpResultFunc<StaffEntity>())
+                .map(new Func1<StaffEntity, List<LeaderEntity>>() {
+                    @Override
+                    public List<LeaderEntity> call(StaffEntity staffEntity) {
+                        return staffEntity.getStaff();
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public static Subscription findByOneScopes(Subscriber<List<DepartmentEntity>> subscriber) {
+        return RequestManager.getInstance()
+                .getScienceApi().findByOneScopes("S")
+                .map(new HttpResultFunc<List<DepartmentEntity>>())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public static Subscription deparmentFind(Subscriber<StaffEntity> subscriber, Integer id) {
+        return RequestManager.getInstance()
+                .getScienceApi().deparmentFind(id)
+                .map(new HttpResultFunc<StaffEntity>())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 }

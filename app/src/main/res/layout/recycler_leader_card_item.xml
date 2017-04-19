@@ -65,14 +65,14 @@
                     android:text="电话:"/>
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/CardLinerStyle">
+            <!--<LinearLayout-->
+                <!--style="@style/CardLinerStyle">-->
 
-                <TextView
-                    android:id="@+id/tv_email_leader_card"
-                    style="@style/CardTextStyle"
-                    android:text="电话:"/>
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_email_leader_card"-->
+                    <!--style="@style/CardTextStyle"-->
+                    <!--android:text="电话:"/>-->
+            <!--</LinearLayout>-->
 
         </LinearLayout>
     </LinearLayout>
