@@ -11,6 +11,8 @@ import com.fjrcloud.sciencepro.data.net.LeaderEntity;
 import com.fjrcloud.sciencepro.data.net.ManagementEntity;
 import com.fjrcloud.sciencepro.data.net.ScienceDyEntity;
 import com.fjrcloud.sciencepro.data.net.StaffEntity;
+import com.fjrcloud.sciencepro.data.net.TypeEntity;
+import com.fjrcloud.sciencepro.data.net.WorkEntity;
 
 import java.util.List;
 
@@ -117,7 +119,7 @@ public class ScieneManager {
                                 break;
                             }
                         }
-                        return RequestManager.getInstance().getScienceApi().deparmentFind(id);
+                        return id != 0 ? RequestManager.getInstance().getScienceApi().deparmentFind(id) : null;
                     }
                 })
                 .map(new HttpResultFunc<StaffEntity>())
@@ -145,6 +147,42 @@ public class ScieneManager {
         return RequestManager.getInstance()
                 .getScienceApi().deparmentFind(id)
                 .map(new HttpResultFunc<StaffEntity>())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public static Subscription type1FindAll(Subscriber<List<TypeEntity>> subscriber) {
+        return RequestManager.getInstance()
+                .getScienceApi().type1FindAll()
+                .map(new HttpResultFunc<List<TypeEntity>>())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public static Subscription type2FindAll(Subscriber<List<TypeEntity>> subscriber) {
+        return RequestManager.getInstance()
+                .getScienceApi().type2FindAll()
+                .map(new HttpResultFunc<List<TypeEntity>>())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public static Subscription guideFindByDepartment(Subscriber<List<WorkEntity>> subscriber, int id, Integer pageNum, Integer pageSize) {
+        return RequestManager.getInstance()
+                .getScienceApi().guideFindByDepartment(id, pageNum, pageSize)
+                .map(new HttpListResultFunc<List<WorkEntity>>())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public static Subscription policyFindByDepartment(Subscriber<List<WorkEntity>> subscriber, int id, Integer pageNum, Integer pageSize) {
+        return RequestManager.getInstance()
+                .getScienceApi().policyFindByDepartment(id, pageNum, pageSize)
+                .map(new HttpListResultFunc<List<WorkEntity>>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);

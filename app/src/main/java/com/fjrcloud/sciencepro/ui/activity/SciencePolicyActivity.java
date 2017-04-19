@@ -1,5 +1,7 @@
 package com.fjrcloud.sciencepro.ui.activity;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +9,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.fjrcloud.sciencepro.R;
+import com.fjrcloud.sciencepro.data.net.TypeEntity;
+import com.fjrcloud.sciencepro.network.ScieneManager;
+import com.fjrcloud.sciencepro.subscribers.SimpleSubListener;
+import com.fjrcloud.sciencepro.subscribers.SimpleSubscriber;
 import com.fjrcloud.sciencepro.ui.base.BaseToolbarActivity;
 import com.fjrcloud.sciencepro.ui.fragment.SciencePolicyListFragment;
 
@@ -18,9 +24,9 @@ import java.util.List;
  */
 public class SciencePolicyActivity extends BaseToolbarActivity {
 
-    private String[] mName = {"国家政策", "省市政策", "福清政策"};
     private List<Fragment> mFragments;
     private SciencePolicyAdapter mAdapter;
+    private List<TypeEntity> entities;
 
     @Override
     protected int provideContentView() {
@@ -28,12 +34,36 @@ public class SciencePolicyActivity extends BaseToolbarActivity {
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getData();
+    }
+
+    private void getData() {
+        SimpleSubListener<List<TypeEntity>> listener = new SimpleSubListener<List<TypeEntity>>() {
+            @Override
+            public void onNext(List<TypeEntity> typeEntities) {
+                for (TypeEntity entity : typeEntities) {
+                    entities.add(entity);
+                }
+                for (int i = 0; i < entities.size(); i++) {
+                    mFragments.add(SciencePolicyListFragment.newInstance(entities.get(i).getId()));
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+        };
+        addSubscription(ScieneManager.type1FindAll(new SimpleSubscriber<>(listener)));
+    }
+
+    @Override
     public void initData() {
         mFragments = new ArrayList<>();
-        for (int i = 0; i < mName.length; i++) {
-            mFragments.add(SciencePolicyListFragment.newInstance(mName[i]));
-        }
-
+        entities = new ArrayList<>();
     }
 
     @Override
@@ -48,11 +78,6 @@ public class SciencePolicyActivity extends BaseToolbarActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.vp_science_policy);
         viewPager.setAdapter(mAdapter);
         tabLayout.setupWithViewPager(viewPager);
-    }
-
-    @Override
-    public void initListener() {
-
     }
 
     private class SciencePolicyAdapter extends FragmentPagerAdapter {
@@ -73,7 +98,7 @@ public class SciencePolicyActivity extends BaseToolbarActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mName[position];
+            return entities.get(position).getName();
         }
     }
 }

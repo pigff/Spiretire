@@ -10,8 +10,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.fjrcloud.sciencepro.R;
 import com.fjrcloud.sciencepro.data.SciencePolicyResponse;
+import com.fjrcloud.sciencepro.data.net.WorkEntity;
+import com.fjrcloud.sciencepro.network.ScieneManager;
+import com.fjrcloud.sciencepro.subscribers.SimpleSubscriber;
 import com.fjrcloud.sciencepro.ui.activity.PolicyDetailedActivity;
 import com.fjrcloud.sciencepro.ui.base.BaseRecyclerFragment;
+import com.fjrcloud.sciencepro.utils.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,23 +25,19 @@ import java.util.List;
  * Use the {@link SciencePolicyListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SciencePolicyListFragment extends BaseRecyclerFragment<SciencePolicyResponse.SciencePolicy> {
+public class SciencePolicyListFragment extends BaseRecyclerFragment<WorkEntity> {
 
     private static final String ARG_PARAM1 = "param1";
-
-
-    private String tabName;
-    private List<SciencePolicyResponse.SciencePolicy> mSciencePolicies;
-
+    private int tabId;
 
     public SciencePolicyListFragment() {
     }
 
 
-    public static SciencePolicyListFragment newInstance(String param1) {
+    public static SciencePolicyListFragment newInstance(int param1) {
         SciencePolicyListFragment fragment = new SciencePolicyListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putInt(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,7 +46,7 @@ public class SciencePolicyListFragment extends BaseRecyclerFragment<SciencePolic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            tabName = getArguments().getString(ARG_PARAM1);
+            tabId = getArguments().getInt(ARG_PARAM1);
         }
     }
 
@@ -62,27 +62,30 @@ public class SciencePolicyListFragment extends BaseRecyclerFragment<SciencePolic
     }
 
     @Override
-    protected BaseQuickAdapter<SciencePolicyResponse.SciencePolicy, BaseViewHolder> getRecyclerAdapter() {
-        return new SciencePolicyListAdapter(R.layout.recycler_science_policy_item, mSciencePolicies);
+    protected BaseQuickAdapter<WorkEntity, BaseViewHolder> getRecyclerAdapter() {
+        return new SciencePolicyListAdapter(R.layout.recycler_science_policy_item);
     }
 
     @Override
     protected void getData() {
-        mSciencePolicies = new ArrayList<>();
-        mSciencePolicies.add(new SciencePolicyResponse.SciencePolicy("关于征集2017年全市性创新创业活动项目的通知", "2017-03-01"));
-        mAdapter.setNewData(mSciencePolicies);
+
     }
 
-    private class SciencePolicyListAdapter extends BaseQuickAdapter<SciencePolicyResponse.SciencePolicy, BaseViewHolder> {
+    @Override
+    protected void onLazyLoad() {
+        addSubscription(ScieneManager.guideFindByDepartment(new SimpleSubscriber<>(getSimpleListener()), tabId, mPageNum, mPageSize));
+    }
 
-        SciencePolicyListAdapter(int layoutResId, List<SciencePolicyResponse.SciencePolicy> data) {
-            super(layoutResId, data);
+    private class SciencePolicyListAdapter extends BaseQuickAdapter<WorkEntity, BaseViewHolder> {
+
+        SciencePolicyListAdapter(int layoutResId) {
+            super(layoutResId);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, SciencePolicyResponse.SciencePolicy item) {
-            helper.setText(R.id.tv_title_science_policy, item.getTitle())
-                    .setText(R.id.tv_date_science_policy, item.getDate())
+        protected void convert(BaseViewHolder helper, WorkEntity item) {
+            helper.setText(R.id.tv_title_science_policy, item.getName())
+                    .setText(R.id.tv_date_science_policy, DateUtil.getDateToString(item.getCreateTime()))
                     .addOnClickListener(R.id.science_policy_group);
         }
     }

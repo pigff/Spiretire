@@ -5,11 +5,15 @@ package com.fjrcloud.sciencepro.utils;
  */
 public class Constants {
 
-//    public static final String BASE_URL = "http://172.30.16.62:8080/";
+    //    public static final String BASE_URL = "http://172.30.16.62:8080/";
 //    public static final String BASE_IMG_URL = "http://172.30.16.62:8080";
-    public static final String BASE_URL = "http://java.fjrcloud.com/fredz/";
-    public static final String BASE_IMG_URL = "http://java.fjrcloud.com/fredz";
-    public static final String BASE_Web_IMG_URL = "http://java.fjrcloud.com";
+//    public static final String BASE_URL = "http://java.fjrcloud.com/fredz/";
+//    public static final String BASE_IMG_URL = "http://java.fjrcloud.com/fredz";
+//    public static final String BASE_Web_IMG_URL = "http://java.fjrcloud.com";
+    // shiling
+    public static final String BASE_URL = "http://172.30.16.24:8080/tech/";
+    public static final String BASE_IMG_URL = "http://172.30.16.24:8080/tech";
+    public static final String BASE_Web_IMG_URL = "http://172.30.16.24:8080";
 
     public static final int PERMISSION_CODE = 10000;
     public static final int PERMISSION_CODE3 = 10002;

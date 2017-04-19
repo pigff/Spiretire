@@ -132,7 +132,9 @@ public abstract class BaseRecyclerFragment<T> extends BaseFragment implements Ba
 
     protected abstract BaseQuickAdapter<T, BaseViewHolder> getRecyclerAdapter();
 
-    protected abstract void getData();
+    protected void getData() {
+
+    }
 
 
 

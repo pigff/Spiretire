@@ -8,15 +8,23 @@
 
     <include layout="@layout/custom_toolbar"/>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_intro_agence"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="scrollable"
-        app:tabBackground="@color/grey_249_color_code"
-        app:tabIndicatorColor="@color/blue_68_color_code"
-        app:tabSelectedTextColor="@color/blue_59_color_code"
-        app:tabTextColor="@color/black_62_color_code"/>
+        android:background="@color/grey_249_color_code">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_intro_agence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="scrollable"
+            app:tabBackground="@color/grey_249_color_code"
+            app:tabIndicatorColor="@color/blue_68_color_code"
+            app:tabSelectedTextColor="@color/blue_59_color_code"
+            app:tabTextColor="@color/black_62_color_code"/>
+    </FrameLayout>
+
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_intro_agence"
