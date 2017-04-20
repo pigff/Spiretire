@@ -20,8 +20,11 @@ import com.fjrcloud.sciencepro.data.net.WorkEntity;
 import com.fjrcloud.sciencepro.ui.base.BaseToolbarActivity;
 import com.fjrcloud.sciencepro.ui.fragment.WorkPagerFragment;
 import com.fjrcloud.sciencepro.utils.Constants;
+import com.fjrcloud.sciencepro.utils.IntentUtil;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -96,9 +99,10 @@ public class WorkDetailedActivity extends BaseToolbarActivity {
             mFragments.add(WorkPagerFragment.newInstance(guideItemsEntities.get(i)));
         }
 
+        String[] filePahts = entity.getFilePath().split(",");
         mDownloadInfos = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            mDownloadInfos.add(new DownloadInfo("办理文档程序.doc"));
+        for (int i = 0; i < filePahts.length; i++) {
+            mDownloadInfos.add(new DownloadInfo(filePahts[i]));
         }
     }
 
@@ -132,17 +136,26 @@ public class WorkDetailedActivity extends BaseToolbarActivity {
 
         @Override
         protected void convert(BaseViewHolder helper, DownloadInfo item) {
-            helper.setImageResource(R.id.iv_file_item, R.drawable.img_word)
-                    .setText(R.id.tv_name_file_item, item.getName())
+            helper.setImageResource(R.id.iv_file_item, item.getImgSrc())
+                    .setText(R.id.tv_name_file_item, item.getRealName())
                     .addOnClickListener(R.id.file_item_group);
         }
     }
 
     class DownloadInfo {
         private String name;
+        private int imgSrc;
+        private String realName;
 
         DownloadInfo(String name) {
             this.name = name;
+            this.imgSrc = IntentUtil.getFileImage(name);
+            realName = getReal(name);
+        }
+
+        private String getReal(String name) {
+            int index = name.lastIndexOf("/");
+            return name.substring(index + 1, name.length());
         }
 
         public String getName() {
@@ -151,6 +164,22 @@ public class WorkDetailedActivity extends BaseToolbarActivity {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public int getImgSrc() {
+            return imgSrc;
+        }
+
+        public void setImgSrc(int imgSrc) {
+            this.imgSrc = imgSrc;
+        }
+
+        public String getRealName() {
+            return realName;
+        }
+
+        public void setRealName(String realName) {
+            this.realName = realName;
         }
     }
 }

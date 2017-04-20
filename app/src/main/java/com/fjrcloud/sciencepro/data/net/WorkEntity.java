@@ -14,7 +14,7 @@ public class WorkEntity implements Serializable{
     private String addr;
     private String phone;
     private long createTime;
-    private String filePath;
+    private String filesPath;
     private List<GuideItemsEntity> guideItems;
     private TypeEntity department;
 
@@ -60,11 +60,11 @@ public class WorkEntity implements Serializable{
     }
 
     public String getFilePath() {
-        return filePath;
+        return filesPath == null ? "" : filesPath;
     }
 
     public void setFilePath(String filePath) {
-        this.filePath = filePath;
+        this.filesPath = filePath;
     }
 
     public List<GuideItemsEntity> getGuideItems() {

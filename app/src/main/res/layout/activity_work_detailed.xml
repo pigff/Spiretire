@@ -82,7 +82,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp">
+        android:layout_height="55dp"
+        android:background="@color/grey_247_color_code">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_work_detailed"
