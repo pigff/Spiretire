@@ -81,7 +81,7 @@ public class PolicyDetailedActivity extends BaseToolbarActivity {
     public void initData() {
         mFragments = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            mFragments.add(WorkPagerFragment.newInstance(mTitles[i] + "暂时没有内容"));
+//            mFragments.add(WorkPagerFragment.newInstance(mTitles[i] + "暂时没有内容"));
         }
 
         mDownloadInfos = new ArrayList<>();

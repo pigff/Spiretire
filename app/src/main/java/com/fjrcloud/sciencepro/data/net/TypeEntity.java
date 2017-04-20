@@ -1,10 +1,12 @@
 package com.fjrcloud.sciencepro.data.net;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/4/19.
  */
 
-public class TypeEntity {
+public class TypeEntity implements Serializable{
 
     private int id;
     private String name;

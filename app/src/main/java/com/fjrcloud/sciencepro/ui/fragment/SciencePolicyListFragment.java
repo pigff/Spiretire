@@ -14,7 +14,10 @@ import com.fjrcloud.sciencepro.data.net.WorkEntity;
 import com.fjrcloud.sciencepro.network.ScieneManager;
 import com.fjrcloud.sciencepro.subscribers.SimpleSubscriber;
 import com.fjrcloud.sciencepro.ui.activity.PolicyDetailedActivity;
+import com.fjrcloud.sciencepro.ui.activity.WorkActivity;
+import com.fjrcloud.sciencepro.ui.activity.WorkDetailedActivity;
 import com.fjrcloud.sciencepro.ui.base.BaseRecyclerFragment;
+import com.fjrcloud.sciencepro.utils.Constants;
 import com.fjrcloud.sciencepro.utils.DateUtil;
 
 import java.util.ArrayList;
@@ -56,7 +59,9 @@ public class SciencePolicyListFragment extends BaseRecyclerFragment<WorkEntity> 
             @Override
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 //                Toast.makeText(getActivity(), ((SciencePolicyResponse.SciencePolicy) adapter.getItem(position)).getTitle(), Toast.LENGTH_SHORT).show();
-                openActivity(PolicyDetailedActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Constants.DATA, ((WorkEntity) adapter.getItem(position)));
+                openActivity(WorkDetailedActivity.class, bundle);
             }
         });
     }
@@ -73,7 +78,7 @@ public class SciencePolicyListFragment extends BaseRecyclerFragment<WorkEntity> 
 
     @Override
     protected void onLazyLoad() {
-        addSubscription(ScieneManager.guideFindByDepartment(new SimpleSubscriber<>(getSimpleListener()), tabId, mPageNum, mPageSize));
+        addSubscription(ScieneManager.policyFindByDepartment(new SimpleSubscriber<>(getSimpleListener()), tabId, mPageNum, mPageSize));
     }
 
     private class SciencePolicyListAdapter extends BaseQuickAdapter<WorkEntity, BaseViewHolder> {

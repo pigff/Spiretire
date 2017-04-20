@@ -1,12 +1,13 @@
 package com.fjrcloud.sciencepro.data.net;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/19.
  */
 
-public class WorkEntity {
+public class WorkEntity implements Serializable{
 
     private int id;
     private String name;

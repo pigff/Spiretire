@@ -57,7 +57,7 @@ public class SciencePolicyActivity extends BaseToolbarActivity {
 
             }
         };
-        addSubscription(ScieneManager.type1FindAll(new SimpleSubscriber<>(listener)));
+        addSubscription(ScieneManager.type2FindAll(new SimpleSubscriber<>(listener)));
     }
 
     @Override

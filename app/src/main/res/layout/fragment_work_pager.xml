@@ -6,10 +6,9 @@
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10">
 
-    <TextView
-        android:id="@+id/tv_content_work_pager"
+    <WebView
+        android:id="@+id/web_content_work_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_44_color_code"/>
+        android:layout_height="match_parent"/>
 
 </ScrollView>

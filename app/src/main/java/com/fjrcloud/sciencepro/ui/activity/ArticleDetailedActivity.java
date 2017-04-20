@@ -67,12 +67,8 @@ public class ArticleDetailedActivity extends BaseToolbarActivity {
         }
         TextView titleTv = (TextView) findViewById(R.id.tv_title_article_detailed);
         TextView countTv = (TextView) findViewById(R.id.tv_count_article_detailed);
-        FrameLayout layout = (FrameLayout) findViewById(R.id.layout_web_container);
 
-        mWebView = new WebView(getApplicationContext());
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        mWebView.setLayoutParams(params);
-        layout.addView(mWebView);
+        mWebView = (WebView) findViewById(R.id.layout_web_container);
 
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setJavaScriptEnabled(true);

@@ -1,5 +1,8 @@
 package com.fjrcloud.sciencepro.data;
 
+import com.fjrcloud.sciencepro.data.net.TypeEntity;
+import com.fjrcloud.sciencepro.data.net.WorkEntity;
+
 import java.util.List;
 
 /**
@@ -8,28 +11,32 @@ import java.util.List;
 
 public class WorkZipItem {
 
-    private String categoryName;
+    private TypeEntity typeEntity;
 
-    private List<SciencePolicyResponse.SciencePolicy> sciencePolicies;
+    private List<WorkEntity> sciencePolicies;
 
-    public WorkZipItem(String categoryName, List<SciencePolicyResponse.SciencePolicy> sciencePolicies) {
-        this.categoryName = categoryName;
+    public WorkZipItem(TypeEntity typeEntity, List<WorkEntity> sciencePolicies) {
+        this.typeEntity = typeEntity;
         this.sciencePolicies = sciencePolicies;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public WorkZipItem(TypeEntity typeEntity) {
+        this(typeEntity, null);
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public TypeEntity getTypeEntity() {
+        return typeEntity;
     }
 
-    public List<SciencePolicyResponse.SciencePolicy> getSciencePolicies() {
+    public void setTypeEntity(TypeEntity typeEntity) {
+        this.typeEntity = typeEntity;
+    }
+
+    public List<WorkEntity> getSciencePolicies() {
         return sciencePolicies;
     }
 
-    public void setSciencePolicies(List<SciencePolicyResponse.SciencePolicy> sciencePolicies) {
+    public void setSciencePolicies(List<WorkEntity> sciencePolicies) {
         this.sciencePolicies = sciencePolicies;
     }
 }

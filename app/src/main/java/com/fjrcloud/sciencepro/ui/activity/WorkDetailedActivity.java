@@ -1,5 +1,6 @@
 package com.fjrcloud.sciencepro.ui.activity;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,8 +15,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.fjrcloud.sciencepro.R;
+import com.fjrcloud.sciencepro.data.net.GuideItemsEntity;
+import com.fjrcloud.sciencepro.data.net.WorkEntity;
 import com.fjrcloud.sciencepro.ui.base.BaseToolbarActivity;
 import com.fjrcloud.sciencepro.ui.fragment.WorkPagerFragment;
+import com.fjrcloud.sciencepro.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +29,7 @@ import java.util.List;
  */
 public class WorkDetailedActivity extends BaseToolbarActivity {
 
-    private String[] mTitles = {"办理程序", "办理条件", "其他事项"};
+    private List<GuideItemsEntity> guideItemsEntities;
 
     private RecyclerView mRecyclerView;
     private TabLayout mTabLayout;
@@ -36,6 +40,7 @@ public class WorkDetailedActivity extends BaseToolbarActivity {
     private List<DownloadInfo> mDownloadInfos;
     private WorkDetailedPagerAdapter mPagerAdapter;
     private WorkRvAdapter mRvAdapter;
+    private WorkEntity entity;
 
     @Override
     protected int provideContentView() {
@@ -66,9 +71,10 @@ public class WorkDetailedActivity extends BaseToolbarActivity {
         mRecyclerView.setAdapter(mRvAdapter);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.setOffscreenPageLimit(5);
 
-        mAddrTv.setText("福清市科技局");
-        mPhoneTv.setText("18065215452");
+        mAddrTv.setText(entity.getAddr());
+        mPhoneTv.setText(entity.getPhone());
     }
 
     @Override
@@ -79,9 +85,15 @@ public class WorkDetailedActivity extends BaseToolbarActivity {
 
     @Override
     public void initData() {
+        Bundle bundle = getBundleData();
+        entity = (WorkEntity) bundle.getSerializable(Constants.DATA);
+        guideItemsEntities = new ArrayList<>();
+        for (GuideItemsEntity guideItemsEntity : entity.getGuideItems()) {
+            guideItemsEntities.add(guideItemsEntity);
+        }
         mFragments = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            mFragments.add(WorkPagerFragment.newInstance(mTitles[i] + "暂时没有内容"));
+        for (int i = 0; i < guideItemsEntities.size(); i++) {
+            mFragments.add(WorkPagerFragment.newInstance(guideItemsEntities.get(i)));
         }
 
         mDownloadInfos = new ArrayList<>();
@@ -108,13 +120,13 @@ public class WorkDetailedActivity extends BaseToolbarActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mTitles[position];
+            return guideItemsEntities.get(position).getName();
         }
     }
 
-    class WorkRvAdapter extends BaseQuickAdapter<DownloadInfo, BaseViewHolder> {
+    private class WorkRvAdapter extends BaseQuickAdapter<DownloadInfo, BaseViewHolder> {
 
-        public WorkRvAdapter(int layoutResId, List<DownloadInfo> data) {
+        WorkRvAdapter(int layoutResId, List<DownloadInfo> data) {
             super(layoutResId, data);
         }
 
@@ -129,7 +141,7 @@ public class WorkDetailedActivity extends BaseToolbarActivity {
     class DownloadInfo {
         private String name;
 
-        public DownloadInfo(String name) {
+        DownloadInfo(String name) {
             this.name = name;
         }
 
