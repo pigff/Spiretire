@@ -42,13 +42,13 @@ public class ProgressResponseBody extends ResponseBody {
     @Override
     public BufferedSource source() {
         if (mBufferedSource == null) {
-            mBufferedSource = Okio.buffer(getSource());
+            mBufferedSource = Okio.buffer(getSource(mResponseBody.source()));
         }
         return mBufferedSource;
     }
 
-    private Source getSource() {
-        return new ForwardingSource(source()) {
+    private Source getSource(BufferedSource source) {
+        return new ForwardingSource(source) {
             long totalBytesRead = 0L;
             @Override
             public long read(Buffer sink, long byteCount) throws IOException {

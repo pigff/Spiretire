@@ -13,6 +13,12 @@ public class FileEntity implements Parcelable {
     private String name;
     private String filesPath;
     private long createTime;
+    private boolean isDownload;
+
+    public FileEntity(String name, String filesPath) {
+        this.name = name;
+        this.filesPath = filesPath;
+    }
 
     public int getId() {
         return id;
@@ -46,6 +52,17 @@ public class FileEntity implements Parcelable {
         this.createTime = createTime;
     }
 
+    public boolean isDownload() {
+        return isDownload;
+    }
+
+    public void setDownload(boolean download) {
+        isDownload = download;
+    }
+
+    public FileEntity() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -57,9 +74,7 @@ public class FileEntity implements Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.filesPath);
         dest.writeLong(this.createTime);
-    }
-
-    public FileEntity() {
+        dest.writeByte(this.isDownload ? (byte) 1 : (byte) 0);
     }
 
     protected FileEntity(Parcel in) {
@@ -67,9 +82,10 @@ public class FileEntity implements Parcelable {
         this.name = in.readString();
         this.filesPath = in.readString();
         this.createTime = in.readLong();
+        this.isDownload = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<FileEntity> CREATOR = new Parcelable.Creator<FileEntity>() {
+    public static final Creator<FileEntity> CREATOR = new Creator<FileEntity>() {
         @Override
         public FileEntity createFromParcel(Parcel source) {
             return new FileEntity(source);

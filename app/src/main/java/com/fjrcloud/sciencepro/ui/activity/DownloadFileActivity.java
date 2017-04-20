@@ -1,15 +1,19 @@
 package com.fjrcloud.sciencepro.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.fjrcloud.sciencepro.App;
+import com.fjrcloud.sciencepro.DownloadService;
 import com.fjrcloud.sciencepro.R;
 import com.fjrcloud.sciencepro.data.net.FileEntity;
 import com.fjrcloud.sciencepro.network.ScieneManager;
@@ -18,7 +22,10 @@ import com.fjrcloud.sciencepro.subscribers.SimpleSubscriber;
 import com.fjrcloud.sciencepro.ui.base.BaseToolbarActivity;
 import com.fjrcloud.sciencepro.utils.Constants;
 import com.fjrcloud.sciencepro.utils.DateUtil;
+import com.fjrcloud.sciencepro.utils.FileUtil;
+import com.fjrcloud.sciencepro.utils.IntentUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +75,26 @@ public class DownloadFileActivity extends BaseToolbarActivity implements View.On
         mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
             @Override
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                FileEntity item = (FileEntity) adapter.getItem(position);
+                File file = new File(FileUtil.getDiskCacheDir(App.getInstance(), item.getName()));
 
+                if (file.exists()) {
+                    Intent intent = IntentUtil.openFile(FileUtil.getDiskCacheDir(App.getInstance(), item.getName()));
+                    if (intent != null) {
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(DownloadFileActivity.this, "不支持打开该类型的文件", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (item.isDownload()) {
+                        Toast.makeText(DownloadFileActivity.this, "正在下载中，请稍后", Toast.LENGTH_SHORT).show();
+                    } else {
+                        item.setDownload(true);
+                        Intent intent2Download = new Intent(DownloadFileActivity.this, DownloadService.class);
+                        intent2Download.putExtra(Constants.DATA, item);
+                        startService(intent2Download);
+                    }
+                }
             }
         });
     }

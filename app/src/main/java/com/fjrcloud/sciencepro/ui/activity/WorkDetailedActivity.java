@@ -1,5 +1,6 @@
 package com.fjrcloud.sciencepro.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,20 +9,27 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.fjrcloud.sciencepro.App;
+import com.fjrcloud.sciencepro.DownloadService;
 import com.fjrcloud.sciencepro.R;
+import com.fjrcloud.sciencepro.data.net.FileEntity;
 import com.fjrcloud.sciencepro.data.net.GuideItemsEntity;
 import com.fjrcloud.sciencepro.data.net.WorkEntity;
 import com.fjrcloud.sciencepro.ui.base.BaseToolbarActivity;
 import com.fjrcloud.sciencepro.ui.fragment.WorkPagerFragment;
 import com.fjrcloud.sciencepro.utils.Constants;
+import com.fjrcloud.sciencepro.utils.FileUtil;
 import com.fjrcloud.sciencepro.utils.IntentUtil;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,7 +63,27 @@ public class WorkDetailedActivity extends BaseToolbarActivity {
         mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
             @Override
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-//                Toast.makeText(WorkDetailedActivity.this, "xixi", Toast.LENGTH_SHORT).show();
+                DownloadInfo item = (DownloadInfo) baseQuickAdapter.getItem(position);
+                File file = new File(FileUtil.getDiskCacheDir(App.getInstance(), item.getRealName()));
+
+                if (file.exists()) {
+                    Intent intent = IntentUtil.openFile(FileUtil.getDiskCacheDir(App.getInstance(), item.getRealName()));
+                    if (intent != null) {
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(WorkDetailedActivity.this, "不支持打开该类型的文件", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (item.isDownload()) {
+                        Toast.makeText(WorkDetailedActivity.this, "正在下载中，请稍后", Toast.LENGTH_SHORT).show();
+                    } else {
+                        item.setDownload(true);
+                        FileEntity entity = new FileEntity(item.getRealName(), item.getName());
+                        Intent intent2Download = new Intent(WorkDetailedActivity.this, DownloadService.class);
+                        intent2Download.putExtra(Constants.DATA, entity);
+                        startService(intent2Download);
+                    }
+                }
             }
         });
     }
@@ -102,7 +130,9 @@ public class WorkDetailedActivity extends BaseToolbarActivity {
         String[] filePahts = entity.getFilePath().split(",");
         mDownloadInfos = new ArrayList<>();
         for (int i = 0; i < filePahts.length; i++) {
-            mDownloadInfos.add(new DownloadInfo(filePahts[i]));
+            if (!TextUtils.isEmpty(filePahts[i])) {
+                mDownloadInfos.add(new DownloadInfo(filePahts[i]));
+            }
         }
     }
 
@@ -146,6 +176,7 @@ public class WorkDetailedActivity extends BaseToolbarActivity {
         private String name;
         private int imgSrc;
         private String realName;
+        private boolean isDownload;
 
         DownloadInfo(String name) {
             this.name = name;
@@ -156,6 +187,14 @@ public class WorkDetailedActivity extends BaseToolbarActivity {
         private String getReal(String name) {
             int index = name.lastIndexOf("/");
             return name.substring(index + 1, name.length());
+        }
+
+        public boolean isDownload() {
+            return isDownload;
+        }
+
+        public void setDownload(boolean download) {
+            isDownload = download;
         }
 
         public String getName() {

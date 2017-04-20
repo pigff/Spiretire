@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -172,5 +173,30 @@ public class FileUtil {
         }
         String timeStamp = new SimpleDateFormat("yyyymmdd_HHmmss").format(new Date());
         return new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
+    }
+
+    /**
+     * 写入文件
+     *
+     * @param in
+     * @param file
+     */
+    public static void writeFile(InputStream in, File file) throws IOException {
+        if (!file.getParentFile().exists())
+            file.getParentFile().mkdirs();
+
+        if (file != null && file.exists())
+            file.delete();
+
+        FileOutputStream out = new FileOutputStream(file);
+        byte[] buffer = new byte[1024 * 128];
+        int len = -1;
+        while ((len = in.read(buffer)) != -1) {
+            out.write(buffer, 0, len);
+        }
+        out.flush();
+        out.close();
+        in.close();
+
     }
 }

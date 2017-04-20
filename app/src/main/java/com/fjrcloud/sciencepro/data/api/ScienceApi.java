@@ -15,9 +15,12 @@ import com.fjrcloud.sciencepro.data.net.WorkEntity;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -83,4 +86,7 @@ public interface ScienceApi {
     Observable<HttpListResut<List<WorkEntity>>> policyFindByDepartment(@Query("departmentId") Integer departmentId, @Query("pageNum") Integer pageNum,
                                                                        @Query("pageSize") Integer pageSize);
 
+    @Streaming
+    @GET
+    Observable<ResponseBody> download(@Url String url);
 }
