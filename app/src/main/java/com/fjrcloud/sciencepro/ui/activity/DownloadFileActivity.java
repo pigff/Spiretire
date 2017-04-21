@@ -1,5 +1,6 @@
 package com.fjrcloud.sciencepro.ui.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ import com.fjrcloud.sciencepro.utils.Constants;
 import com.fjrcloud.sciencepro.utils.DateUtil;
 import com.fjrcloud.sciencepro.utils.FileUtil;
 import com.fjrcloud.sciencepro.utils.IntentUtil;
+import com.fjrcloud.sciencepro.widget.DialDialog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -75,7 +77,7 @@ public class DownloadFileActivity extends BaseToolbarActivity implements View.On
         mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
             @Override
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                FileEntity item = (FileEntity) adapter.getItem(position);
+                final FileEntity item = (FileEntity) adapter.getItem(position);
                 File file = new File(FileUtil.getDiskCacheDir(App.getInstance(), item.getName()));
 
                 if (file.exists()) {
@@ -86,17 +88,36 @@ public class DownloadFileActivity extends BaseToolbarActivity implements View.On
                         Toast.makeText(DownloadFileActivity.this, "不支持打开该类型的文件", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    if (item.isDownload()) {
-                        Toast.makeText(DownloadFileActivity.this, "正在下载中，请稍后", Toast.LENGTH_SHORT).show();
-                    } else {
-                        item.setDownload(true);
-                        Intent intent2Download = new Intent(DownloadFileActivity.this, DownloadService.class);
-                        intent2Download.putExtra(Constants.DATA, item);
-                        startService(intent2Download);
-                    }
+                    download(item);
                 }
             }
         });
+    }
+
+    private void download(final FileEntity item) {
+        new DialDialog.Builder(DownloadFileActivity.this)
+                .setMessage("是否要下载该文件")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (item.isDownload()) {
+                            Toast.makeText(DownloadFileActivity.this, "正在下载中，请稍后", Toast.LENGTH_SHORT).show();
+                        } else {
+                            item.setDownload(true);
+                            Intent intent2Download = new Intent(DownloadFileActivity.this, DownloadService.class);
+                            intent2Download.putExtra(Constants.DATA, item);
+                            startService(intent2Download);
+                        }
+                    }
+                })
+                .create()
+                .show();
     }
 
     @Override

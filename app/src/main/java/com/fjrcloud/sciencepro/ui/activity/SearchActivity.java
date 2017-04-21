@@ -1,5 +1,6 @@
 package com.fjrcloud.sciencepro.ui.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.fjrcloud.sciencepro.utils.Constants;
 import com.fjrcloud.sciencepro.utils.DateUtil;
 import com.fjrcloud.sciencepro.utils.FileUtil;
 import com.fjrcloud.sciencepro.utils.IntentUtil;
+import com.fjrcloud.sciencepro.widget.DialDialog;
 import com.fjrcloud.sciencepro.widget.EditTextWithDel;
 
 import java.io.File;
@@ -123,17 +125,37 @@ public class SearchActivity extends BaseToolbarActivity {
                         Toast.makeText(SearchActivity.this, "不支持打开该类型的文件", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    if (item.isDownload()) {
-                        Toast.makeText(SearchActivity.this, "正在下载中，请稍后", Toast.LENGTH_SHORT).show();
-                    } else {
-                        item.setDownload(true);
-                        Intent intent2Download = new Intent(SearchActivity.this, DownloadService.class);
-                        intent2Download.putExtra(Constants.DATA, item);
-                        startService(intent2Download);
-                    }
+                    download(item);
                 }
             }
         });
+    }
+
+    private void download(final FileEntity item) {
+        new DialDialog.Builder(SearchActivity.this)
+                .setMessage("是否要下载该文件")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (item.isDownload()) {
+                            Toast.makeText(SearchActivity.this, "正在下载中，请稍后", Toast.LENGTH_SHORT).show();
+                        } else {
+                            item.setDownload(true);
+                            Intent intent2Download = new Intent(SearchActivity.this, DownloadService.class);
+                            intent2Download.putExtra(Constants.DATA, item);
+                            startService(intent2Download);
+                        }
+                        dialog.dismiss();
+                    }
+                })
+                .create()
+                .show();
     }
 
     private class SearchAdapter extends BaseQuickAdapter<FileEntity, BaseViewHolder> {

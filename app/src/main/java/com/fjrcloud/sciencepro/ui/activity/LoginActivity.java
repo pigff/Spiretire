@@ -1,7 +1,6 @@
 package com.fjrcloud.sciencepro.ui.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -115,8 +114,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //                login(new UserDomain().new Login(mUserName, mPassword));
                 break;
             case R.id.btn_regist:
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                showShortToast("该功能开发中");
+//                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.iv_back_img_top:
                 finish();

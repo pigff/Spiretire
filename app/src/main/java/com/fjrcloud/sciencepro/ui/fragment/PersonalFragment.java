@@ -19,10 +19,6 @@ import com.fjrcloud.sciencepro.R;
 import com.fjrcloud.sciencepro.adapter.CenterGridAdapter;
 import com.fjrcloud.sciencepro.ui.activity.LoginActivity;
 import com.fjrcloud.sciencepro.ui.activity.ModifyPswActivity;
-import com.fjrcloud.sciencepro.ui.activity.RegisterActivity;
-import com.fjrcloud.sciencepro.ui.activity.ReviewUserActivity;
-import com.fjrcloud.sciencepro.ui.activity.SonAccountListActivity;
-import com.fjrcloud.sciencepro.ui.activity.manager.ManagerReviewListActivity;
 import com.fjrcloud.sciencepro.ui.base.BaseFragment;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -88,7 +84,8 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         mRegistTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity(RegisterActivity.class);
+                showShortToast("该功能开发中");
+//                openActivity(RegisterActivity.class);
             }
         });
         mLoginTv.setOnClickListener(new View.OnClickListener() {
@@ -106,16 +103,19 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                         break;
                     case 1:
 //                        openActivity(ReviewFailUserActivity.class);
-                        openActivity(ReviewUserActivity.class);
+                        showShortToast("该功能开发中");
+//                        openActivity(ReviewUserActivity.class);
                         break;
                     case 2:
                         openActivity(ModifyPswActivity.class);
                         break;
                     case 3:
-                        openActivity(SonAccountListActivity.class);
+                        showShortToast("该功能开发中");
+//                        openActivity(SonAccountListActivity.class);
                         break;
                     case 4:
-                        openActivity(ManagerReviewListActivity.class);
+                        showShortToast("该功能开发中");
+//                        openActivity(ManagerReviewListActivity.class);
                         break;
                     default:
                         break;
