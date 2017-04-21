@@ -82,4 +82,18 @@ public class WorkEntity implements Serializable{
     public void setDepartment(TypeEntity department) {
         this.department = department;
     }
+
+    @Override
+    public String toString() {
+        return "WorkEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", addr='" + addr + '\'' +
+                ", phone='" + phone + '\'' +
+                ", createTime=" + createTime +
+                ", filesPath='" + filesPath + '\'' +
+                ", guideItems=" + guideItems +
+                ", department=" + department +
+                '}';
+    }
 }

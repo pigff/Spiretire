@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -38,12 +39,11 @@ public class WorkActivity extends BaseToolbarActivity {
     private RecyclerView mRecyclerView;
     private WorkAdapter mAdapter;
     private List<WorkZipItem> mWorkZipItems;
-    private int total;
-    private int current;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getData();
     }
 
@@ -51,7 +51,8 @@ public class WorkActivity extends BaseToolbarActivity {
         final CompleteSubListener<List<WorkEntity>> comListener = new CompleteSubListener<List<WorkEntity>>() {
             @Override
             public void onNext(List<WorkEntity> workEntities) {
-                mWorkZipItems.get(current).setSciencePolicies(workEntities);
+                mWorkZipItems.add(new WorkZipItem(workEntities.get(0).getDepartment(), workEntities));
+                Log.d(TAG, "onNext: " + workEntities);
             }
 
             @Override
@@ -61,24 +62,28 @@ public class WorkActivity extends BaseToolbarActivity {
 
             @Override
             public void onCompleted() {
-                current++;
-                if (current < total) {
-                    addSubscription(ScieneManager.guideFindByDepartment(new CompleteSubscriber<>(this),
-                            mWorkZipItems.get(current).getTypeEntity().getId(), 0, 4));
-                } else {
-                    mAdapter.addData(mWorkZipItems);
-                }
+                mAdapter.addData(mWorkZipItems);
+//                if (current < total) {
+//                    addSubscription(ScieneManager.guideFindByDepartment(new CompleteSubscriber<>(this),
+//                            mWorkZipItems.get(current).getTypeEntity().getId(), 0, 4));
+//                } else {
+//                    mAdapter.addData(mWorkZipItems);
+//                }
             }
         };
         SimpleSubListener<List<TypeEntity>> listener = new SimpleSubListener<List<TypeEntity>>() {
             @Override
             public void onNext(List<TypeEntity> typeEntities) {
+//                for (TypeEntity entity : typeEntities) {
+//                    mWorkZipItems.add(new WorkZipItem(entity));
+//                }
+//                addSubscription(ScieneManager.guideFindByDepartment(new CompleteSubscriber<>(comListener),
+//                        mWorkZipItems.get(current).getTypeEntity().getId(), 0, 4));
+                List<Integer> integers = new ArrayList<>();
                 for (TypeEntity entity : typeEntities) {
-                    mWorkZipItems.add(new WorkZipItem(entity));
+                    integers.add(entity.getId());
                 }
-                total = mWorkZipItems.size();
-                addSubscription(ScieneManager.guideFindByDepartment(new CompleteSubscriber<>(comListener),
-                        mWorkZipItems.get(current).getTypeEntity().getId(), 0, 4));
+                ScieneManager.fakeNetWork(new CompleteSubscriber<>(comListener), integers, 0, 4);
             }
 
             @Override
@@ -91,6 +96,7 @@ public class WorkActivity extends BaseToolbarActivity {
         addSubscription(ScieneManager.type1FindAll(new SimpleSubscriber<>(listener)));
     }
 
+
     @Override
     protected int provideContentView() {
         return R.layout.activity_work;
@@ -99,7 +105,6 @@ public class WorkActivity extends BaseToolbarActivity {
     @Override
     public void initData() {
         mWorkZipItems = new ArrayList<>();
-        current = 0;
     }
 
     @Override

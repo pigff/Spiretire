@@ -2,6 +2,7 @@ package com.fjrcloud.sciencepro.network;
 
 import android.text.TextUtils;
 
+import com.fjrcloud.sciencepro.data.base.HttpListResut;
 import com.fjrcloud.sciencepro.data.base.HttpResult;
 import com.fjrcloud.sciencepro.data.net.AdEntity;
 import com.fjrcloud.sciencepro.data.net.DepartmentEntity;
@@ -182,6 +183,21 @@ public class ScieneManager {
     public static Subscription policyFindByDepartment(Subscriber<List<WorkEntity>> subscriber, int id, Integer pageNum, Integer pageSize) {
         return RequestManager.getInstance()
                 .getScienceApi().policyFindByDepartment(id, pageNum, pageSize)
+                .map(new HttpListResultFunc<List<WorkEntity>>())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    public static Subscription fakeNetWork(Subscriber<List<WorkEntity>> subscriber, List<Integer> ids, final Integer pageNum, final Integer pageSize) {
+        return Observable.from(ids)
+                .flatMap(new Func1<Integer, Observable<HttpListResut<List<WorkEntity>>>>() {
+                    @Override
+                    public Observable<HttpListResut<List<WorkEntity>>> call(Integer integer) {
+                        return RequestManager.getInstance().getScienceApi().guideFindByDepartment(integer, pageNum, pageSize);
+                    }
+                })
                 .map(new HttpListResultFunc<List<WorkEntity>>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
