@@ -36,7 +36,6 @@ public abstract class BaseRecyclerFragment<T> extends BaseFragment implements Ba
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getData();
     }
 
     @Override
@@ -87,7 +86,7 @@ public abstract class BaseRecyclerFragment<T> extends BaseFragment implements Ba
             mSimpleSubListener = new SimpleSubListener<List<T>>() {
                 @Override
                 public void onNext(List<T> t) {
-                    if (mPageNum == 0 && t.size() == 0) {
+                    if (mPageNum == 0 && t.size() == 0 && hasBaseLayout()) {
                         showEmpty();
                         return;
                     }
@@ -132,11 +131,6 @@ public abstract class BaseRecyclerFragment<T> extends BaseFragment implements Ba
 
     protected abstract BaseQuickAdapter<T, BaseViewHolder> getRecyclerAdapter();
 
-    protected void getData() {
-
-    }
-
-
 
     @Override
     public void onLoadMoreRequested() {
@@ -146,7 +140,7 @@ public abstract class BaseRecyclerFragment<T> extends BaseFragment implements Ba
     private void getNetData() {
         if (!mIsLoad) {
             mIsLoad = true;
-            getData();
+            onLazyLoad();
         }
     }
 }

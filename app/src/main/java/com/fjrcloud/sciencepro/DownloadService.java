@@ -81,13 +81,13 @@ public class DownloadService extends IntentService {
             public void onCompleted() {
                 mNotificationManager.cancel(0);
                 // 没用啊 - - 因为service 结束了？
-                mBuilder = new Notification.Builder(DownloadService.this)
-                        .setSmallIcon(R.mipmap.icon_logo)
-                        .setContentText("Downloading File ok")
-                        .setContentTitle("Download")
-                        .setAutoCancel(true);
-
-                mNotificationManager.notify(1, mBuilder.build());
+//                mBuilder = new Notification.Builder(DownloadService.this)
+//                        .setSmallIcon(R.mipmap.icon_logo)
+//                        .setContentText("Downloading File ok")
+//                        .setContentTitle("Download")
+//                        .setAutoCancel(true);
+//
+//                mNotificationManager.notify(1, mBuilder.build());
                 Toast.makeText(App.getInstance(), "下载完成", Toast.LENGTH_SHORT).show();
 //                Toast.makeText(DownloadService.this, "completed", Toast.LENGTH_SHORT).show();
             }

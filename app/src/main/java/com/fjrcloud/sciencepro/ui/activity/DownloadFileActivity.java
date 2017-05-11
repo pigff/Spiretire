@@ -114,6 +114,7 @@ public class DownloadFileActivity extends BaseToolbarActivity implements View.On
                             intent2Download.putExtra(Constants.DATA, item);
                             startService(intent2Download);
                         }
+                        dialog.dismiss();
                     }
                 })
                 .create()
